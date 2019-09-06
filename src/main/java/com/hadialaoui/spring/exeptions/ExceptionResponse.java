@@ -1,4 +1,4 @@
-package com.hadialaoui.spring.users;
+package com.hadialaoui.spring.exeptions;
 
 import java.util.Date;
 

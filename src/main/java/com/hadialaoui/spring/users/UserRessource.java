@@ -23,7 +23,7 @@ public class UserRessource {
 	@Autowired
 	private UserDAOService daoService;
 	
-	@GetMapping("/users")
+	@GetMapping(path= "/users", produces="application/json")
 	public List<User> findAll(){
 		return daoService.findAll();
 		

@@ -9,13 +9,11 @@ public class Name {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 	public Name(String firstName, String lastname) {
 		super();
 		this.firstName = firstName;
 		this.lastname = lastname;
 	}
-
 
 	public String getFirstName() {
 		return firstName;
