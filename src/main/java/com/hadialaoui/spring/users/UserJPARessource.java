@@ -57,4 +57,15 @@ public class UserJPARessource {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(location).build(); 
 	}
+	
+	@GetMapping("/users/{id}/posts")
+	public List<Post> getPostsByUser(@PathVariable int id){
+		Optional<User> user = repositoryService.findById(id);
+		if(!user.isPresent())
+			throw new UserNotFoundExeption("id-"+id);
+		
+		
+		return user.get().getPosts();
+		
+	}
 }
