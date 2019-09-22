@@ -24,18 +24,18 @@ public class UserRessource {
 	private UserDAOService daoService;
 	
 	@GetMapping(path= "/users", produces="application/json")
-	public List<User> findAll(){
+	public List<Utilisateur> findAll(){
 		return daoService.findAll();
 		
 	}
 	
 	@GetMapping("/users/{id}")
-	public Resource<User> findOne(@PathVariable int id){
-		User user = daoService.findOne(id);
+	public Resource<Utilisateur> findOne(@PathVariable int id){
+		Utilisateur user = daoService.findOne(id);
 		if(user == null)
 			throw new UserNotFoundExeption("id-"+id);
 		
-		Resource<User> resource = new Resource<User>(user);
+		Resource<Utilisateur> resource = new Resource<Utilisateur>(user);
 		ControllerLinkBuilder linkTo = ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(this.getClass()).findAll());
 		
 		resource.add(linkTo.withRel("all-ussers"));
@@ -45,14 +45,14 @@ public class UserRessource {
 	
 	@DeleteMapping("/users/{id}")
 	public void delete(@PathVariable int id){
-		User user = daoService.delete(id);
+		Utilisateur user = daoService.delete(id);
 		if(user == null)
 			throw new UserNotFoundExeption("id-"+id);
 		
 	 }
 	
 	@PostMapping("/users")
-	public ResponseEntity<Object> create(@Valid @RequestBody User user){
+	public ResponseEntity<Object> create(@Valid @RequestBody Utilisateur user){
 		daoService.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(location).build(); 

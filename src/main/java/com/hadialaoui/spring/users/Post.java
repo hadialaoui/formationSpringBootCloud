@@ -20,7 +20,7 @@ public class Post implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
-	private User user;
+	private Utilisateur user;
 
 	public Integer getId() {
 		return id;
@@ -38,11 +38,11 @@ public class Post implements Serializable {
 		this.description = description;
 	}
 
-	public User getUser() {
+	public Utilisateur getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Utilisateur user) {
 		this.user = user;
 	}
 

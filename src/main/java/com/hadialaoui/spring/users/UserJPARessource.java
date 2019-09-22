@@ -27,18 +27,18 @@ public class UserJPARessource {
 	private UserRepository  repositoryService;
 	
 	@GetMapping(path= "/users", produces="application/json")
-	public List<User> findAll(){
+	public List<Utilisateur> findAll(){
 		return repositoryService.findAll();
 		
 	}
 	
 	@GetMapping("/users/{id}")
-	public Resource<User> findOne(@PathVariable int id){
-		Optional<User> user = repositoryService.findById(id);
+	public Resource<Utilisateur> findOne(@PathVariable int id){
+		Optional<Utilisateur> user = repositoryService.findById(id);
 		if(!user.isPresent())
 			throw new UserNotFoundExeption("id-"+id);
 		
-		Resource<User> resource = new Resource<User>(user.get());
+		Resource<Utilisateur> resource = new Resource<Utilisateur>(user.get());
 		ControllerLinkBuilder linkTo = ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(this.getClass()).findAll());
 		
 		resource.add(linkTo.withRel("all-ussers"));
@@ -52,7 +52,7 @@ public class UserJPARessource {
     }
 	
 	@PostMapping("/users")
-	public ResponseEntity<Object> create(@Valid @RequestBody User user){
+	public ResponseEntity<Object> create(@Valid @RequestBody Utilisateur user){
 		repositoryService.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(location).build(); 
@@ -60,7 +60,7 @@ public class UserJPARessource {
 	
 	@GetMapping("/users/{id}/posts")
 	public List<Post> getPostsByUser(@PathVariable int id){
-		Optional<User> user = repositoryService.findById(id);
+		Optional<Utilisateur> user = repositoryService.findById(id);
 		if(!user.isPresent())
 			throw new UserNotFoundExeption("id-"+id);
 		

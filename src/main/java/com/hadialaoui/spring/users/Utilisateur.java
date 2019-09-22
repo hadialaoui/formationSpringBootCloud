@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description="All details about the user.")
 @Entity
-public class User implements Serializable {
+public class Utilisateur implements Serializable {
   
 	@Id
 	@GeneratedValue
@@ -32,12 +32,12 @@ public class User implements Serializable {
    @OneToMany(mappedBy="user")
    private List<Post> posts;
    
-   public User() {
+   public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
    
-public User(Integer id, String name, Date birthDate) {
+public Utilisateur(Integer id, String name, Date birthDate) {
 	super();
 	this.id = id;
 	this.name = name;

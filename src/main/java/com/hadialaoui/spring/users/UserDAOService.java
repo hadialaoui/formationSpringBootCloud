@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserDAOService {
-  private static List<User> users = new ArrayList<User>();
+  private static List<Utilisateur> users = new ArrayList<Utilisateur>();
   private static int userCount = 4;
   
   static {
-	  users.add(new User(1, "Ahmed", new Date()));
-	  users.add(new User(2, "Meryam", new Date()));
-	  users.add(new User(3, "Mourad", new Date()));
-	  users.add(new User(4, "Zakaria", new Date()));
+	  users.add(new Utilisateur(1, "Ahmed", new Date()));
+	  users.add(new Utilisateur(2, "Meryam", new Date()));
+	  users.add(new Utilisateur(3, "Mourad", new Date()));
+	  users.add(new Utilisateur(4, "Zakaria", new Date()));
   }
   
-  public User findOne(Integer id) {
-	 for (User user : users) {
+  public Utilisateur findOne(Integer id) {
+	 for (Utilisateur user : users) {
 		if(user.getId() == id) {
 			return user;
 		}
@@ -28,9 +28,9 @@ public class UserDAOService {
 	  return null;
   }
   
-  public User delete(Integer id) {
-	  for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
-		User user = (User) iterator.next();
+  public Utilisateur delete(Integer id) {
+	  for (Iterator<Utilisateur> iterator = users.iterator(); iterator.hasNext();) {
+		Utilisateur user = (Utilisateur) iterator.next();
 		if(user.getId() == id) {
 			iterator.remove();
 			return user;
@@ -40,11 +40,11 @@ public class UserDAOService {
 		  return null;
 	  }
   
-  public List<User> findAll(){
+  public List<Utilisateur> findAll(){
 	  return users;
   }
   
-  public void save(User user) {
+  public void save(Utilisateur user) {
 	  if(user.getId()==null)
 	  user.setId(++userCount);
 	  users.add(user);
