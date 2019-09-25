@@ -1,9 +1,15 @@
 package com.hadialaoui.spring.security;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +21,9 @@ public class User {
 	private String username;
 	private String password;
 	private boolean active;
-	private String roles;
+	
+	@OneToMany(fetch= FetchType.EAGER)
+	private List<Authorities> roles;
 	public int getId() {
 		return id;
 	}
@@ -40,12 +48,13 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public String getRoles() {
+	public List<Authorities> getRoles() {
 		return roles;
 	}
-	public void setRoles(String roles) {
+	public void setRoles(List<Authorities> roles) {
 		this.roles = roles;
 	}
+	
 
 	
 }

@@ -3,6 +3,7 @@ package com.hadialaoui.spring.security;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -25,9 +26,13 @@ public class MyUserDetails implements UserDetails {
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.active = user.isActive();
-		this.authorities = Arrays.stream(user.getRoles().split(","))
-				.map(SimpleGrantedAuthority::new)
+		this.authorities = user.getRoles()
+				.stream()
+				.map(auth ->  new SimpleGrantedAuthority(auth.getAuthority()))
 				.collect(Collectors.toList());
+		/*this.authorities = Arrays.stream(user.getRoles().split(","))
+				.map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());*/
 	}
 	/*public MyUserDetails(String username) {
 		super();

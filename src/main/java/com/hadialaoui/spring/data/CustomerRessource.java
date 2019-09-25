@@ -23,13 +23,13 @@ public class CustomerRessource {
 	@Autowired
 	private CustomerDAOService daoService;
 	
-	@GetMapping(path= "/users", produces="application/json")
+	@GetMapping(path= "/customers", produces="application/json")
 	public List<Customer> findAll(){
 		return daoService.findAll();
 		
 	}
 	
-	@GetMapping("/users/{id}")
+	@GetMapping("/customers/{id}")
 	public Resource<Customer> findOne(@PathVariable int id){
 		Customer user = daoService.findOne(id);
 		if(user == null)
@@ -43,7 +43,7 @@ public class CustomerRessource {
 		
 	}
 	
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/customers/{id}")
 	public void delete(@PathVariable int id){
 		Customer user = daoService.delete(id);
 		if(user == null)
@@ -51,7 +51,7 @@ public class CustomerRessource {
 		
 	 }
 	
-	@PostMapping("/users")
+	@PostMapping("/customers")
 	public ResponseEntity<Object> create(@Valid @RequestBody Customer user){
 		daoService.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();

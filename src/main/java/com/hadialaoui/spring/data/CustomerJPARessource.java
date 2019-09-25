@@ -23,16 +23,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/jpa")
 public class CustomerJPARessource {
 
-	@Autowired(required=true)
+	@Autowired
 	private CustomerMetierRepository  repositoryService;
 	
-	@GetMapping(path= "/users", produces="application/json")
+	@GetMapping(path= "/customers", produces="application/json")
 	public List<Customer> findAll(){
 		return repositoryService.findAll();
 		
 	}
 	
-	@GetMapping("/users/{id}")
+	@GetMapping("/customers/{id}")
 	public Resource<Customer> findOne(@PathVariable int id){
 		Optional<Customer> user = repositoryService.findById(id);
 		if(!user.isPresent())
@@ -41,24 +41,24 @@ public class CustomerJPARessource {
 		Resource<Customer> resource = new Resource<Customer>(user.get());
 		ControllerLinkBuilder linkTo = ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(this.getClass()).findAll());
 		
-		resource.add(linkTo.withRel("all-ussers"));
+		resource.add(linkTo.withRel("all-customers"));
 		return resource;
 		
 	}
 	
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/customers/{id}")
 	public void delete(@PathVariable int id){
 		 repositoryService.deleteById(id);
     }
 	
-	@PostMapping("/users")
+	@PostMapping("/customers")
 	public ResponseEntity<Object> create(@Valid @RequestBody Customer user){
 		repositoryService.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(location).build(); 
 	}
 	
-	@GetMapping("/users/{id}/posts")
+	@GetMapping("/customers/{id}/posts")
 	public List<Post> getPostsByUser(@PathVariable int id){
 		Optional<Customer> user = repositoryService.findById(id);
 		if(!user.isPresent())
