@@ -1,4 +1,4 @@
-package com.hadialaoui.spring.users;
+package com.hadialaoui.spring.data;
 
 import java.io.Serializable;
 
@@ -20,7 +20,7 @@ public class Post implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Utilisateur user;
+	private Customer customer;
 
 	public Integer getId() {
 		return id;
@@ -38,17 +38,17 @@ public class Post implements Serializable {
 		this.description = description;
 	}
 
-	public Utilisateur getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(Utilisateur user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", description=" + description + ", user=" + user.getName() + "]";
+		return "Post [id=" + id + ", description=" + description + ", customer=" + customer.getName() + "]";
 	}
 	
 	

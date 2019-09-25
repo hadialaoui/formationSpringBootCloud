@@ -1,4 +1,4 @@
-package com.hadialaoui.spring.users;
+package com.hadialaoui.spring.data;
 
 import java.net.URI;
 import java.util.List;
@@ -21,24 +21,24 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/jpa")
-public class UserJPARessource {
+public class CustomerJPARessource {
 
-	@Autowired
-	private UserRepository  repositoryService;
+	@Autowired(required=true)
+	private CustomerMetierRepository  repositoryService;
 	
 	@GetMapping(path= "/users", produces="application/json")
-	public List<Utilisateur> findAll(){
+	public List<Customer> findAll(){
 		return repositoryService.findAll();
 		
 	}
 	
 	@GetMapping("/users/{id}")
-	public Resource<Utilisateur> findOne(@PathVariable int id){
-		Optional<Utilisateur> user = repositoryService.findById(id);
+	public Resource<Customer> findOne(@PathVariable int id){
+		Optional<Customer> user = repositoryService.findById(id);
 		if(!user.isPresent())
-			throw new UserNotFoundExeption("id-"+id);
+			throw new CustomerNotFoundExeption("id-"+id);
 		
-		Resource<Utilisateur> resource = new Resource<Utilisateur>(user.get());
+		Resource<Customer> resource = new Resource<Customer>(user.get());
 		ControllerLinkBuilder linkTo = ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(this.getClass()).findAll());
 		
 		resource.add(linkTo.withRel("all-ussers"));
@@ -52,7 +52,7 @@ public class UserJPARessource {
     }
 	
 	@PostMapping("/users")
-	public ResponseEntity<Object> create(@Valid @RequestBody Utilisateur user){
+	public ResponseEntity<Object> create(@Valid @RequestBody Customer user){
 		repositoryService.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(location).build(); 
@@ -60,9 +60,9 @@ public class UserJPARessource {
 	
 	@GetMapping("/users/{id}/posts")
 	public List<Post> getPostsByUser(@PathVariable int id){
-		Optional<Utilisateur> user = repositoryService.findById(id);
+		Optional<Customer> user = repositoryService.findById(id);
 		if(!user.isPresent())
-			throw new UserNotFoundExeption("id-"+id);
+			throw new CustomerNotFoundExeption("id-"+id);
 		
 		
 		return user.get().getPosts();

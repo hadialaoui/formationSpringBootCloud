@@ -1,4 +1,4 @@
-package com.hadialaoui.spring.users;
+package com.hadialaoui.spring.data;
 
 import java.net.URI;
 import java.util.List;
@@ -18,24 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-public class UserRessource {
+public class CustomerRessource {
 
 	@Autowired
-	private UserDAOService daoService;
+	private CustomerDAOService daoService;
 	
 	@GetMapping(path= "/users", produces="application/json")
-	public List<Utilisateur> findAll(){
+	public List<Customer> findAll(){
 		return daoService.findAll();
 		
 	}
 	
 	@GetMapping("/users/{id}")
-	public Resource<Utilisateur> findOne(@PathVariable int id){
-		Utilisateur user = daoService.findOne(id);
+	public Resource<Customer> findOne(@PathVariable int id){
+		Customer user = daoService.findOne(id);
 		if(user == null)
-			throw new UserNotFoundExeption("id-"+id);
+			throw new CustomerNotFoundExeption("id-"+id);
 		
-		Resource<Utilisateur> resource = new Resource<Utilisateur>(user);
+		Resource<Customer> resource = new Resource<Customer>(user);
 		ControllerLinkBuilder linkTo = ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(this.getClass()).findAll());
 		
 		resource.add(linkTo.withRel("all-ussers"));
@@ -45,14 +45,14 @@ public class UserRessource {
 	
 	@DeleteMapping("/users/{id}")
 	public void delete(@PathVariable int id){
-		Utilisateur user = daoService.delete(id);
+		Customer user = daoService.delete(id);
 		if(user == null)
-			throw new UserNotFoundExeption("id-"+id);
+			throw new CustomerNotFoundExeption("id-"+id);
 		
 	 }
 	
 	@PostMapping("/users")
-	public ResponseEntity<Object> create(@Valid @RequestBody Utilisateur user){
+	public ResponseEntity<Object> create(@Valid @RequestBody Customer user){
 		daoService.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(location).build(); 

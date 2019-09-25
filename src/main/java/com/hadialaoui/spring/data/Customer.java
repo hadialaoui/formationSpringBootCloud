@@ -1,4 +1,4 @@
-package com.hadialaoui.spring.users;
+package com.hadialaoui.spring.data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description="All details about the user.")
 @Entity
-public class Utilisateur implements Serializable {
+public class Customer implements Serializable {
   
 	@Id
 	@GeneratedValue
@@ -29,15 +29,15 @@ public class Utilisateur implements Serializable {
    @Past
    private Date  birthDate;
    
-   @OneToMany(mappedBy="user")
+   @OneToMany(mappedBy="customer")
    private List<Post> posts;
    
-   public Utilisateur() {
+   public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
    
-public Utilisateur(Integer id, String name, Date birthDate) {
+public Customer(Integer id, String name, Date birthDate) {
 	super();
 	this.id = id;
 	this.name = name;
@@ -72,7 +72,7 @@ public void setPosts(List<Post> posts) {
 
 @Override
 public String toString() {
-	return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
+	return "Customer [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
 }
    
    

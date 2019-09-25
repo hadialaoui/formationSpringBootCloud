@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.hadialaoui.spring.users.UserNotFoundExeption;
+import com.hadialaoui.spring.data.CustomerNotFoundExeption;
 
 @ControllerAdvice
 @RestController
@@ -25,8 +25,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(UserNotFoundExeption.class)
-	public final ResponseEntity<Object> handleNotFoundExceptions(UserNotFoundExeption ex, WebRequest request){
+	@ExceptionHandler(CustomerNotFoundExeption.class)
+	public final ResponseEntity<Object> handleNotFoundExceptions(CustomerNotFoundExeption ex, WebRequest request){
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
 		
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.NOT_FOUND);

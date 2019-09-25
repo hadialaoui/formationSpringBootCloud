@@ -1,12 +1,12 @@
-package com.hadialaoui.spring.users;
+package com.hadialaoui.spring.data;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class UserNotFoundExeption extends RuntimeException {
+public class CustomerNotFoundExeption extends RuntimeException {
 
-	public UserNotFoundExeption(String string) {
+	public CustomerNotFoundExeption(String string) {
 		super(string);
 	}
 
